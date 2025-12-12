@@ -1,0 +1,47 @@
+﻿@* Salon detay görüntüleme , dolu form gelir *@
+@model FitnessCenterManagement.Models.FitnessCenter
+
+@{
+    ViewData["Title"] = "Salon Detayları";
+}
+
+<div class="container mt-4">
+    <h2>Spor Salonu Detayları</h2>
+    <hr />
+    <!-- definiton list kullanimi ile duzenli gozukur-->
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="row">
+                
+                <dt class="col-sm-4">Salon Adı</dt>
+                <dd class="col-sm-8">@Model.Name</dd>
+
+                
+                <dt class="col-sm-4">Adres</dt>
+                <dd class="col-sm-8">@Model.Address</dd>
+
+               
+                <dt class="col-sm-4">Telefon</dt>
+                <dd class="col-sm-8">@Model.Phone</dd>
+
+                
+                <dt class="col-sm-4">E-posta</dt>
+                <dd class="col-sm-8">@Model.Email</dd>
+
+                
+                <dt class="col-sm-4">Açılış Saati</dt>
+                <dd class="col-sm-8">@Model.OpeningTime</dd>
+
+                
+                <dt class="col-sm-4">Kapanış Saati</dt>
+                <dd class="col-sm-8">@Model.ClosingTime</dd>
+            </dl>
+
+            
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+                <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+﻿@* Salon düzenleme formu *@
+@model FitnessCenterManagement.Models.FitnessCenter
+
+@{
+    ViewData["Title"] = "Salon Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>Spor Salonu Düzenle</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- edit post metoduna git -->
+            <form asp-action="Edit" method="post">
+
+                @* id yi gizli gönder *@
+                <input type="hidden" asp-for="Id" />
+
+                @* tum validation hatalarini goster *@
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label">Salon Adı</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Address" class="form-label">Adres</label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Phone" class="form-label">Telefon</label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label">E-posta</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group mb-3">
+                    <label asp-for="OpeningTime" class="form-label">Açılış Saati</label>
+                    <input asp-for="OpeningTime" type="time" class="form-control" />
+                    <span asp-validation-for="OpeningTime" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group mb-3">
+                    <label asp-for="ClosingTime" class="form-label">Kapanış Saati</label>
+                    <input asp-for="ClosingTime" type="time" class="form-control" />
+                    <span asp-validation-for="ClosingTime" class="text-danger"></span>
+                </div>
+
+                
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-success">Güncelle</button>
+                    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* client tarafli validation için *@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
