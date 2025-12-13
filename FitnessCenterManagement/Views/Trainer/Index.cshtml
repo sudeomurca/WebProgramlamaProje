@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FitnessCenterManagement.Models.Trainer>
+
+@{
+    ViewData["Title"] = "Antrenörler";
+}
+
+<h1>Antrenörler</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Antrenör Ekle</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Uzmanlık Alanı</th>
+            <th>E-posta</th>
+            <th>Telefon</th>
+            <th>Spor Salonu</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainer in Model)
+        {
+            <tr>
+                <td>@trainer.FirstName</td>
+                <td>@trainer.LastName</td>
+                <td>@trainer.Specialization</td>
+                <td>@trainer.Email</td>
+                <td>@trainer.Phone</td>
+                <td>@trainer.FitnessCenter!.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@trainer.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@trainer.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@trainer.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

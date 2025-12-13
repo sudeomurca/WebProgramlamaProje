@@ -1,0 +1,63 @@
+﻿@model FitnessCenterManagement.Models.Trainer
+
+@{
+    ViewData["Title"] = "Antrenör Sil";
+}
+
+<h1>Antrenör Sil</h1>
+
+<h3>Bu antrenörü silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Antrenör Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Ad
+        </dt>
+        <dd class="col-sm-9">
+            @Model.FirstName
+        </dd>
+
+        <dt class="col-sm-3">
+            Soyad
+        </dt>
+        <dd class="col-sm-9">
+            @Model.LastName
+        </dd>
+
+        <dt class="col-sm-3">
+            Uzmanlık Alanı
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Specialization
+        </dd>
+
+        <dt class="col-sm-3">
+            E-posta
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Email
+        </dd>
+
+        <dt class="col-sm-3">
+            Telefon
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Phone
+        </dd>
+
+        <dt class="col-sm-3">
+            Spor Salonu
+        </dt>
+        <dd class="col-sm-9">
+            @Model.FitnessCenter!.Name
+        </dd>
+    </dl>
+
+    <!-- Silme formu -->
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

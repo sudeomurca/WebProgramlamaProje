@@ -1,0 +1,60 @@
+﻿@model FitnessCenterManagement.Models.Trainer
+
+@{
+    ViewData["Title"] = "Antrenör Detayları";
+}
+
+<h1>Antrenör Detayları</h1>
+
+<div>
+    <h4>Antrenör Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Ad
+        </dt>
+        <dd class="col-sm-9">
+            @Model.FirstName
+        </dd>
+
+        <dt class="col-sm-3">
+            Soyad
+        </dt>
+        <dd class="col-sm-9">
+            @Model.LastName
+        </dd>
+
+        <dt class="col-sm-3">
+            Uzmanlık Alanı
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Specialization
+        </dd>
+
+        <dt class="col-sm-3">
+            E-posta
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Email
+        </dd>
+
+        <dt class="col-sm-3">
+            Telefon
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Phone
+        </dd>
+
+        <dt class="col-sm-3">
+            Spor Salonu
+        </dt>
+        <dd class="col-sm-9">
+            @Model.FitnessCenter!.Name
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>

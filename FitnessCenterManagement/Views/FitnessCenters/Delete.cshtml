@@ -1,0 +1,63 @@
+﻿@model FitnessCenterManagement.Models.FitnessCenter
+
+@{
+    ViewData["Title"] = "Spor Salonu Sil";
+}
+
+<h1>Spor Salonu Sil</h1>
+
+<h3>Bu spor salonunu silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Spor Salonu Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Salon Adı
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Name
+        </dd>
+
+        <dt class="col-sm-3">
+            Adres
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Address
+        </dd>
+
+        <dt class="col-sm-3">
+            Telefon
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Phone
+        </dd>
+
+        <dt class="col-sm-3">
+            E-posta
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Email
+        </dd>
+
+        <dt class="col-sm-3">
+            Açılış Saati
+        </dt>
+        <dd class="col-sm-9">
+            @Model.OpeningTime.ToString()
+        </dd>
+
+        <dt class="col-sm-3">
+            Kapanış Saati
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ClosingTime.ToString()
+        </dd>
+    </dl>
+
+    <!-- Silme formu -->
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
