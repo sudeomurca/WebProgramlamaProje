@@ -5,41 +5,29 @@ namespace FitnessCenterManagement.Models
 {
     public class Service
     {
-        public Service()
-        {
-            Name = "";
-            IsActive = true;
-        }
+        [Key]
         public int Id { get; set; }
 
-        
-        [Required(ErrorMessage = "Hizmet adı zorunludur")]
-        [StringLength(100)]
-        public string Name { get; set; } 
+        [Required(ErrorMessage = "Hizmet tipi gereklidir")]
+        public ServiceType ServiceType { get; set; }
 
-        // Açıklama
         [StringLength(500)]
         public string? Description { get; set; }
 
-        
-        [Required(ErrorMessage = "Süre zorunludur")]
-        [Range(15, 240, ErrorMessage = "Süre 15-240 dakika arası olmalıdır")]
+        [Required(ErrorMessage = "Süre gereklidir")]
+        [Range(15, 300, ErrorMessage = "Süre 15-300 dakika arasında olmalıdır")]
         public int DurationMinutes { get; set; }
 
-        
-        [Required(ErrorMessage = "Ücret zorunludur")]
-        [Range(0, 10000, ErrorMessage = "Ücret 0-10000 TL arası olmalıdır")]
+        [Required(ErrorMessage = "Ücret gereklidir")]
+        [Range(0.01, 10000, ErrorMessage = "Ücret 0.01-10000 TL arasında olmalıdır")]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         
-        public bool IsActive { get; set; } 
-
-        
+        [Required(ErrorMessage = "Spor salonu seçilmelidir")]
         public int FitnessCenterId { get; set; }
-        public FitnessCenter? FitnessCenter { get; set; }
 
         
-        public ICollection<Appointment>? Appointments { get; set; }
+        public FitnessCenter? FitnessCenter { get; set; } 
     }
 }

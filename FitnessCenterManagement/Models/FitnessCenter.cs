@@ -10,8 +10,6 @@ namespace FitnessCenterManagement.Models
             Address = "";
             Phone = "";
             Email = "";
-            OpeningTime = "";
-            ClosingTime = "";
             IsActive = true;
         }
         public int Id { get; set; }
@@ -40,10 +38,10 @@ namespace FitnessCenterManagement.Models
 
 
         [Required(ErrorMessage = "Açılış saati zorunludur")]
-        public string OpeningTime { get; set; } 
+        public TimeOnly OpeningTime { get; set; } 
 
         [Required(ErrorMessage = "Kapanış saati zorunludur")]
-        public string ClosingTime { get; set; } 
+        public TimeOnly ClosingTime { get; set; } 
 
         // Kapaliysa randevu alma
         public bool IsActive { get; set; } 

@@ -26,7 +26,9 @@
 
             <div class="mb-3">
                 <label asp-for="Specialization" class="form-label">Uzmanlık Alanı</label>
-                <input asp-for="Specialization" class="form-control" />
+                <select asp-for="Specialization" class="form-control" asp-items="Html.GetEnumSelectList<SpecializationType>()">
+                    <option value="">-- Uzmanlık Alanı Seçin --</option>
+                </select>
                 <span asp-validation-for="Specialization" class="text-danger"></span>
             </div>
 
@@ -61,7 +63,7 @@
         </form>
     </div>
 </div>
-@*validation dogrulama*@
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

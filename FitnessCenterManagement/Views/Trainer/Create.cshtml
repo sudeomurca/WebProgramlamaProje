@@ -4,6 +4,7 @@
     ViewData["Title"] = "Yeni Antrenör Ekle";
 }
 
+
 <h1>Yeni Antrenör Ekle</h1>
 
 <hr />
@@ -24,7 +25,9 @@
 
             <div class="mb-3">
                 <label asp-for="Specialization" class="form-label">Uzmanlık Alanı</label>
-                <input asp-for="Specialization" class="form-control" />
+                <select asp-for="Specialization" class="form-control" asp-items="Html.GetEnumSelectList<SpecializationType>()">
+                    <option value="">-- Uzmanlık Alanı Seçin --</option>
+                </select>
                 <span asp-validation-for="Specialization" class="text-danger"></span>
             </div>
 

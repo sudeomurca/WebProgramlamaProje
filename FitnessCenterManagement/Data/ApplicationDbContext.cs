@@ -1,8 +1,7 @@
-﻿using FitnessCenterManagement.Migrations;
 using FitnessCenterManagement.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+
 
 namespace FitnessCenterManagement.Data
 {
@@ -26,13 +25,13 @@ namespace FitnessCenterManagement.Data
 
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Trainer)
-                .WithMany(t => t.Appointments)
+                .WithMany()
                 .HasForeignKey(a => a.TrainerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Service)
-                .WithMany(s => s.Appointments)
+                .WithMany()
                 .HasForeignKey(a => a.ServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

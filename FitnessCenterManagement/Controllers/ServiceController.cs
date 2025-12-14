@@ -5,27 +5,27 @@ using FitnessCenterManagement.Models;
 
 namespace FitnessCenterManagement.Controllers
 {
-    public class TrainerController : Controller
+    public class ServiceController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        // db baglantisi
-        public TrainerController(ApplicationDbContext context)
+        // veritabani baglantisi icin 
+        public ServiceController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // antrenorleri listele
+        // tum hizmetleri listele
         public async Task<IActionResult> Index()
         {
-            
-            var trainers = await _context.Trainers
-                .Include(t => t.FitnessCenter)
+            // Hizmetleri ve hangi salona ait olduklarını getir
+            var services = await _context.Services
+                .Include(s => s.FitnessCenter)
                 .ToListAsync();
-            return View(trainers);
+            return View(services);
         }
 
-        // antrenor detay
+        // hizmet detaylari
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,20 +33,19 @@ namespace FitnessCenterManagement.Controllers
                 return NotFound();
             }
 
-            
-            var trainer = await _context.Trainers
-                .Include(t => t.FitnessCenter)
+            var service = await _context.Services
+                .Include(s => s.FitnessCenter)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (trainer == null)
+            if (service == null)
             {
                 return NotFound();
             }
 
-            return View(trainer);
+            return View(service);
         }
 
-        // yeni antrenor ekle
+        // yeni hizmet ekle
         public IActionResult Create()
         {
             
@@ -54,24 +53,24 @@ namespace FitnessCenterManagement.Controllers
             return View();
         }
 
-        // yeni antrenor kaydet
+        // yeni hizmet kaydet
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Trainer trainer)
+        public async Task<IActionResult> Create(Service service)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(trainer);
+                _context.Add(service);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-           
+            
             ViewBag.FitnessCenters = _context.FitnessCenters.ToList();
-            return View(trainer);
+            return View(service);
         }
 
-        // antrenor duzenle
+        // hizmet duzenleme sayfasi 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,23 +78,23 @@ namespace FitnessCenterManagement.Controllers
                 return NotFound();
             }
 
-            var trainer = await _context.Trainers.FindAsync(id);
-            if (trainer == null)
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
             {
                 return NotFound();
             }
 
             
             ViewBag.FitnessCenters = _context.FitnessCenters.ToList();
-            return View(trainer);
+            return View(service);
         }
 
-        // antrenor guncelle
+        // hizmet guncelleme
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Trainer trainer)
+        public async Task<IActionResult> Edit(int id, Service service)
         {
-            if (id != trainer.Id)
+            if (id != service.Id)
             {
                 return NotFound();
             }
@@ -104,13 +103,12 @@ namespace FitnessCenterManagement.Controllers
             {
                 try
                 {
-                    _context.Update(trainer);
+                    _context.Update(service);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    
-                    if (!TrainerExists(trainer.Id))
+                    if (!ServiceExists(service.Id))
                     {
                         return NotFound();
                     }
@@ -123,10 +121,10 @@ namespace FitnessCenterManagement.Controllers
             }
 
             ViewBag.FitnessCenters = _context.FitnessCenters.ToList();
-            return View(trainer);
+            return View(service);
         }
 
-        // antrenor silme onayi
+        // silme onay sayfasi 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,27 +132,27 @@ namespace FitnessCenterManagement.Controllers
                 return NotFound();
             }
 
-            var trainer = await _context.Trainers
-                .Include(t => t.FitnessCenter)
+            var service = await _context.Services
+                .Include(s => s.FitnessCenter)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (trainer == null)
+            if (service == null)
             {
                 return NotFound();
             }
 
-            return View(trainer);
+            return View(service);
         }
 
-        // antrenor sil
+        // hizmet silme
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var trainer = await _context.Trainers.FindAsync(id);
-            if (trainer != null)
+            var service = await _context.Services.FindAsync(id);
+            if (service != null)
             {
-                _context.Trainers.Remove(trainer);
+                _context.Services.Remove(service);
                 await _context.SaveChangesAsync();
             }
 
@@ -162,9 +160,9 @@ namespace FitnessCenterManagement.Controllers
         }
 
         
-        private bool TrainerExists(int id)
+        private bool ServiceExists(int id)
         {
-            return _context.Trainers.Any(e => e.Id == id);
+            return _context.Services.Any(e => e.Id == id);
         }
     }
 }

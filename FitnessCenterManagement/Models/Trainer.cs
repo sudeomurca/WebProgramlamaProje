@@ -4,61 +4,35 @@ namespace FitnessCenterManagement.Models
 {
     public class Trainer
     {
-        public Trainer()
-        {
-            FirstName = "";
-            LastName = "";
-            Email = "";
-            Phone = "";
-            Specialization = "";
-            ExperienceYears = 0;
-            IsActive = true;
-        }
+        [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Ad zorunludur")]
+        [Required(ErrorMessage = "Ad gereklidir")]
         [StringLength(50)]
-        public string FirstName { get; set; } 
+        public string FirstName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Soyad zorunludur")]
+        [Required(ErrorMessage = "Soyad gereklidir")]
         [StringLength(50)]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
-        //Gostermek amacli veritabanina kaydetmicez
-        public string FullName
-        {
-            get { return FirstName + " " + LastName; }
-        }
+        [Required(ErrorMessage = "Uzmanlık alanı gereklidir")]
+        public SpecializationType Specialization { get; set; }
 
+        [Required(ErrorMessage = "E-posta gereklidir")]
+        [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz")]
+        [StringLength(100)]
+        public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Email zorunludur")]
-        [EmailAddress(ErrorMessage = "Geçerli bir email giriniz")]
-        public string Email { get; set; } 
-
-        
-        [Required(ErrorMessage = "Telefon zorunludur")]
-        [Phone(ErrorMessage = "Geçerli bir telefon giriniz")]
-        public string Phone { get; set; } 
+        [Required(ErrorMessage = "Telefon numarası gereklidir")]
+        [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz")]
+        [StringLength(20)]
+        public string Phone { get; set; } = string.Empty;
 
         
-        [Required(ErrorMessage = "Uzmanlık alanı zorunludur")]
-        public string Specialization { get; set; } 
-
-        
-        [Range(0, 50, ErrorMessage = "Deneyim 0-50 yıl arası olmalıdır")]
-        public int ExperienceYears { get; set; }
-
-        
-        public bool IsActive { get; set; } 
-
-        
+        [Required(ErrorMessage = "Spor salonu seçilmelidir")]
         public int FitnessCenterId { get; set; }
-        public FitnessCenter? FitnessCenter { get; set; }
 
         
-        public ICollection<TrainerAvailability>? Availabilities { get; set; }
-
-        
-        public ICollection<Appointment>? Appointments { get; set; }
+        public FitnessCenter? FitnessCenter { get; set; } 
     }
 }

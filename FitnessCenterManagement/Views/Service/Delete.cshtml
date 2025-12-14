@@ -1,49 +1,42 @@
-﻿@model FitnessCenterManagement.Models.Trainer
+﻿@model FitnessCenterManagement.Models.Service
 
 @{
-    ViewData["Title"] = "Antrenör Sil";
+    ViewData["Title"] = "Hizmet Sil";
 }
 
-<h1>Antrenör Sil</h1>
+<h1>Hizmet Sil</h1>
 
-<h3>Bu antrenörü silmek istediğinize emin misiniz?</h3>
+<h3>Bu hizmeti silmek istediğinize emin misiniz?</h3>
 <div>
-    <h4>Antrenör Bilgileri</h4>
+    <h4>Hizmet Bilgileri</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-3">
-            Ad
+            Hizmet Adı
         </dt>
         <dd class="col-sm-9">
-            @Model.FirstName
+            @Model.ServiceType.GetDisplayName()
         </dd>
 
         <dt class="col-sm-3">
-            Soyad
+            Açıklama
         </dt>
         <dd class="col-sm-9">
-            @Model.LastName
+            @Model.Description
         </dd>
 
         <dt class="col-sm-3">
-            Uzmanlık Alanı
+            Süre (Dakika)
         </dt>
         <dd class="col-sm-9">
-            @Model.Specialization.GetDisplayName()
+            @Model.DurationMinutes
         </dd>
 
         <dt class="col-sm-3">
-            E-posta
+            Ücret
         </dt>
         <dd class="col-sm-9">
-            @Model.Email
-        </dd>
-
-        <dt class="col-sm-3">
-            Telefon
-        </dt>
-        <dd class="col-sm-9">
-            @Model.Phone
+            @Model.Price.ToString("C2")
         </dd>
 
         <dt class="col-sm-3">
