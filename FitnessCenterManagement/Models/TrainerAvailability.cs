@@ -4,33 +4,29 @@ namespace FitnessCenterManagement.Models
 {
     public class TrainerAvailability
     {
-        public TrainerAvailability()
-        {
-            DayOfWeek = "";
-            StartTime = "";
-            EndTime = "";
-            IsActive = true;
-        }
-
+        [Key]
         public int Id { get; set; }
 
         
+        [Required(ErrorMessage = "Antrenör seçimi zorunludur")]
         public int TrainerId { get; set; }
+
+        
         public Trainer? Trainer { get; set; }
 
         
         [Required(ErrorMessage = "Gün seçimi zorunludur")]
-        public string DayOfWeek { get; set; } 
+        public DayOfWeekEnum DayOfWeek { get; set; }
 
         
         [Required(ErrorMessage = "Başlangıç saati zorunludur")]
-        public string StartTime { get; set; } 
+        public TimeOnly StartTime { get; set; }
 
         
         [Required(ErrorMessage = "Bitiş saati zorunludur")]
-        public string EndTime { get; set; } 
+        public TimeOnly EndTime { get; set; }
 
-        
-        public bool IsActive { get; set; } 
+       
+        public bool IsActive { get; set; } = true;
     }
 }

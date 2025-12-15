@@ -4,6 +4,7 @@ using FitnessCenterManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessCenterManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251215172144_UpdatedTrainerAvailabilityModel")]
+    partial class UpdatedTrainerAvailabilityModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,17 +234,20 @@ namespace FitnessCenterManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
+                    b.Property<string>("DayOfWeek")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeOnly>("EndTime")
-                        .HasColumnType("time");
+                    b.Property<string>("EndTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time");
+                    b.Property<string>("StartTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrainerId")
                         .HasColumnType("int");

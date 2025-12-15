@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FitnessCenterManagement.Models.TrainerAvailability>
+
+@{
+    ViewData["Title"] = "Antrenör Müsaitlikleri";
+}
+
+<h1>Antrenör Müsaitlikleri</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Müsaitlik Ekle</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Antrenör</th>
+            <th>Gün</th>
+            <th>Başlangıç Saati</th>
+            <th>Bitiş Saati</th>
+            <th>Durum</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Trainer!.FirstName @item.Trainer.LastName</td>
+                <td>@item.DayOfWeek.GetDisplayName()</td>
+                <td>@item.StartTime.ToString("HH:mm")</td>
+                <td>@item.EndTime.ToString("HH:mm")</td>
+                <td>
+                    @if (item.IsActive)
+                    {
+                        <span class="badge bg-success">Aktif</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Pasif</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

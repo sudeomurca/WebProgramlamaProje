@@ -1,0 +1,63 @@
+﻿@model FitnessCenterManagement.Models.TrainerAvailability
+
+@{
+    ViewData["Title"] = "Müsaitlik Sil";
+}
+
+<h1>Müsaitlik Sil</h1>
+
+<h3>Bu müsaitlik kaydını silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Müsaitlik Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Antrenör
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Trainer!.FirstName @Model.Trainer.LastName
+        </dd>
+
+        <dt class="col-sm-3">
+            Gün
+        </dt>
+        <dd class="col-sm-9">
+            @Model.DayOfWeek.GetDisplayName()
+        </dd>
+
+        <dt class="col-sm-3">
+            Başlangıç Saati
+        </dt>
+        <dd class="col-sm-9">
+            @Model.StartTime.ToString("HH:mm")
+        </dd>
+
+        <dt class="col-sm-3">
+            Bitiş Saati
+        </dt>
+        <dd class="col-sm-9">
+            @Model.EndTime.ToString("HH:mm")
+        </dd>
+
+        <dt class="col-sm-3">
+            Durum
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.IsActive)
+            {
+                <span class="badge bg-success">Aktif</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">Pasif</span>
+            }
+        </dd>
+    </dl>
+
+    <!-- Silme formu -->
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

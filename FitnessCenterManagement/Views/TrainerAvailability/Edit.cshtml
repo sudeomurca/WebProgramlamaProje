@@ -1,0 +1,66 @@
+﻿@model FitnessCenterManagement.Models.TrainerAvailability
+
+@{
+    ViewData["Title"] = "Müsaitlik Düzenle";
+}
+
+<h1>Müsaitlik Düzenle</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="TrainerId" class="form-label">Antrenör</label>
+                <select asp-for="TrainerId" class="form-control">
+                    <option value="">-- Antrenör Seçin --</option>
+                    @foreach (var trainer in ViewBag.Trainers)
+                    {
+                        <option value="@trainer.Id">@trainer.FirstName @trainer.LastName</option>
+                    }
+                </select>
+                <span asp-validation-for="TrainerId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DayOfWeek" class="form-label">Gün</label>
+                <select asp-for="DayOfWeek" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeekEnum>()">
+                    <option value="">-- Gün Seçin --</option>
+                </select>
+                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartTime" class="form-label">Başlangıç Saati</label>
+                <input asp-for="StartTime" class="form-control" type="time" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EndTime" class="form-label">Bitiş Saati</label>
+                <input asp-for="EndTime" class="form-control" type="time" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                    <label asp-for="IsActive" class="form-check-label">Aktif</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Güncelle</button>
+                <a asp-action="Index" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
