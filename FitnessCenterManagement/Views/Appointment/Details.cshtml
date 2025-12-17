@@ -1,0 +1,103 @@
+﻿@model FitnessCenterManagement.Models.Appointment
+@using FitnessCenterManagement.Models
+@{
+    ViewData["Title"] = "Randevu Detayları";
+}
+
+<h1>Randevu Detayları</h1>
+
+<div>
+    <h4>Randevu Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Kullanıcı ID
+        </dt>
+        <dd class="col-sm-9">
+            @Model.UserId
+        </dd>
+
+        <dt class="col-sm-3">
+            Antrenör
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Trainer!.FirstName @Model.Trainer.LastName
+        </dd>
+
+        <dt class="col-sm-3">
+            Uzmanlık Alanı
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Trainer.Specialization.GetDisplayName()
+        </dd>
+
+        <dt class="col-sm-3">
+            Hizmet
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Service!.ServiceType.GetDisplayName()
+        </dd>
+
+        <dt class="col-sm-3">
+            Hizmet Süresi
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Service.DurationMinutes dakika
+        </dd>
+
+        <dt class="col-sm-3">
+            Ücret
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Service.Price.ToString("C2")
+        </dd>
+
+        <dt class="col-sm-3">
+            Randevu Tarihi ve Saati
+        </dt>
+        <dd class="col-sm-9">
+            @Model.AppointmentDate.ToString("dd.MM.yyyy HH:mm")
+        </dd>
+
+        <dt class="col-sm-3">
+            Durum
+        </dt>
+        <dd class="col-sm-9">
+            @if (Model.Status == "Bekliyor")
+            {
+                <span class="badge bg-warning">@Model.Status</span>
+            }
+            else if (Model.Status == "Onaylandı")
+            {
+                <span class="badge bg-success">@Model.Status</span>
+            }
+            else if (Model.Status == "Reddedildi")
+            {
+                <span class="badge bg-danger">@Model.Status</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">@Model.Status</span>
+            }
+        </dd>
+
+        <dt class="col-sm-3">
+            Notlar
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.Notes ?? "Not bulunmuyor")
+        </dd>
+
+        <dt class="col-sm-3">
+            Oluşturulma Tarihi
+        </dt>
+        <dd class="col-sm-9">
+            @Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>

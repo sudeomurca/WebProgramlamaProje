@@ -1,0 +1,69 @@
+﻿@model FitnessCenterManagement.Models.Appointment
+@using FitnessCenterManagement.Models
+
+@{
+    ViewData["Title"] = "Yeni Randevu Oluştur";
+}
+
+<h1>Yeni Randevu Oluştur</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="UserId" class="form-label">Kullanıcı ID</label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+                <small class="form-text text-muted">Geçici olarak manuel ID girin (örn: user123)</small>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TrainerId" class="form-label">Antrenör</label>
+                <select asp-for="TrainerId" class="form-control">
+                    <option value="">-- Antrenör Seçin --</option>
+                    @foreach (var trainer in (List<Trainer>)ViewBag.Trainers)
+                    {
+                        <option value="@trainer.Id">@trainer.FirstName @trainer.LastName - @trainer.Specialization.GetDisplayName()</option>
+                    }
+                </select>
+                <span asp-validation-for="TrainerId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ServiceId" class="form-label">Hizmet</label>
+                <select asp-for="ServiceId" class="form-control">
+                    <option value="">-- Hizmet Seçin --</option>
+                    @foreach (var service in (List<Service>)ViewBag.Services)
+                    {
+                        <option value="@service.Id">@service.ServiceType.GetDisplayName() - @service.DurationMinutes dk - @service.Price ₺</option>
+                    }
+                </select>
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AppointmentDate" class="form-label">Randevu Tarihi ve Saati</label>
+                <input asp-for="AppointmentDate" class="form-control" type="datetime-local" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label">Notlar (Opsiyonel)</label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Randevu Oluştur</button>
+                <a asp-action="Index" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
