@@ -13,20 +13,32 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Kullanıcı ID</th>
+            <th>Kullanıcı</th>
             <th>Antrenör</th>
             <th>Hizmet</th>
             <th>Randevu Tarihi</th>
             <th>Durum</th>
             <th>Oluşturulma Tarihi</th>
             <th>İşlemler</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Yönetim</th>
+            }
         </tr>
     </thead>
     <tbody>
-        @foreach (var appointment in Model)
+        @{
+            var viewModels = ViewBag.AppointmentViewModels as List<dynamic>;
+            var index = 0;
+        }
+        @foreach (var item in viewModels)
         {
+            var appointment = item.Appointment as FitnessCenterManagement.Models.Appointment;
             <tr>
-                <td>@appointment.UserId</td>
+                <td>
+                    @item.UserFullName<br />
+                    <small class="text-muted">@appointment.UserId</small>
+                </td>
                 <td>@appointment.Trainer!.FirstName @appointment.Trainer.LastName</td>
                 <td>@appointment.Service!.ServiceType.GetDisplayName()</td>
                 <td>@appointment.AppointmentDate.ToString("dd.MM.yyyy HH:mm")</td>
@@ -50,10 +62,27 @@
                 </td>
                 <td>@appointment.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Details" asp-route-id="@appointment.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-action="Details" asp-route-id="@appointment.Id" class="btn btn-sm btn-info">Detay</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                    }
+                    <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-sm btn-danger">Sil</a>
                 </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @if (appointment.Status == "Bekliyor")
+                        {
+                            <a asp-action="Approve" asp-route-id="@appointment.Id" class="btn btn-sm btn-success">Onayla</a>
+                            <a asp-action="Reject" asp-route-id="@appointment.Id" class="btn btn-sm btn-danger">Reddet</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">-</span>
+                        }
+                    </td>
+                }
             </tr>
         }
     </tbody>

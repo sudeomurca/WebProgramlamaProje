@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using FitnessCenterManagement.Data;
 using FitnessCenterManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FitnessCenterManagement.Controllers
 {
@@ -16,6 +17,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // antrenorleri listele
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             
@@ -26,6 +28,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // antrenor detay
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,6 +50,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // yeni antrenor ekle
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             
@@ -57,6 +61,7 @@ namespace FitnessCenterManagement.Controllers
         // yeni antrenor kaydet
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(Trainer trainer)
         {
             if (ModelState.IsValid)
@@ -72,6 +77,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // antrenor duzenle
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,6 +99,7 @@ namespace FitnessCenterManagement.Controllers
         // antrenor guncelle
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, Trainer trainer)
         {
             if (id != trainer.Id)
@@ -127,6 +134,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // antrenor silme onayi
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,6 +157,7 @@ namespace FitnessCenterManagement.Controllers
         // antrenor sil
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var trainer = await _context.Trainers.FindAsync(id);

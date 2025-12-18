@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using FitnessCenterManagement.Data;
 using FitnessCenterManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FitnessCenterManagement.Controllers
 {
@@ -16,6 +17,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // tum hizmetleri listele
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             // Hizmetleri ve hangi salona ait olduklarını getir
@@ -26,6 +28,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // hizmet detaylari
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // yeni hizmet ekle
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             
@@ -56,6 +60,7 @@ namespace FitnessCenterManagement.Controllers
         // yeni hizmet kaydet
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(Service service)
         {
             if (ModelState.IsValid)
@@ -71,6 +76,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // hizmet duzenleme sayfasi 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,6 +98,7 @@ namespace FitnessCenterManagement.Controllers
         // hizmet guncelleme
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, Service service)
         {
             if (id != service.Id)
@@ -125,6 +132,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // silme onay sayfasi 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,6 +155,7 @@ namespace FitnessCenterManagement.Controllers
         // hizmet silme
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var service = await _context.Services.FindAsync(id);

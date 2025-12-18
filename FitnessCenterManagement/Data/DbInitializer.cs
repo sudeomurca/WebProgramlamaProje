@@ -8,7 +8,7 @@ namespace FitnessCenterManagement.Data
         public static async Task Initialize(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             
             string[] roleNames = { "Admin", "Uye" };
@@ -28,11 +28,13 @@ namespace FitnessCenterManagement.Data
 
             if (adminUser == null)
             {
-                var newAdmin = new IdentityUser
+                var newAdmin = new ApplicationUser
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    FirstName = "Admin",
+                    LastName = "Yönetici"
                 };
 
                 var result = await userManager.CreateAsync(newAdmin, "Sau123!");

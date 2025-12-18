@@ -2,30 +2,57 @@
 using Microsoft.EntityFrameworkCore;
 using FitnessCenterManagement.Data;
 using FitnessCenterManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace FitnessCenterManagement.Controllers
 {
     public class AppointmentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         // db baglantisi
-        public AppointmentController(ApplicationDbContext context)
+        public AppointmentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // randevulari listele
+        // randevulari listele - Admin tum randevulari, Uye sadece kendi randevularini gorsun
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var appointments = await _context.Appointments
                 .Include(a => a.Trainer)
                 .Include(a => a.Service)
                 .ToListAsync();
+
+            // Eger Admin degilse, sadece kendi randevularini goster
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.Identity.Name; // Email kullanicinin ID'si
+                appointments = appointments.Where(a => a.UserId == userId).ToList();
+            }
+
+            // Her randevu icin kullanici bilgisini ekle
+            var appointmentViewModels = new List<dynamic>();
+            foreach (var appointment in appointments)
+            {
+                var user = await _userManager.FindByEmailAsync(appointment.UserId);
+                appointmentViewModels.Add(new
+                {
+                    Appointment = appointment,
+                    UserFullName = user != null ? $"{user.FirstName} {user.LastName}" : appointment.UserId
+                });
+            }
+
+            ViewBag.AppointmentViewModels = appointmentViewModels;
             return View(appointments);
         }
 
         // randevu detay
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +73,8 @@ namespace FitnessCenterManagement.Controllers
             return View(appointment);
         }
 
-        // randevu olusturma
+        // randevu olusturma - Giris yapmis herkes randevu alabilir
+        [Authorize]
         public IActionResult Create()
         {
             
@@ -58,12 +86,14 @@ namespace FitnessCenterManagement.Controllers
         // randevu kaydetme
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(Appointment appointment)
         {
             if (ModelState.IsValid)
             {
                 appointment.CreatedDate = DateTime.Now;
                 appointment.Status = "Bekliyor";
+                appointment.UserId = User.Identity.Name; // Kullanici email'ini otomatik ata
 
                 _context.Add(appointment);
                 await _context.SaveChangesAsync();
@@ -75,7 +105,8 @@ namespace FitnessCenterManagement.Controllers
             return View(appointment);
         }
 
-        // randevu duzenle
+        // randevu duzenle - Sadece Admin duzenleyebilir (status degistirmek icin)
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,6 +128,7 @@ namespace FitnessCenterManagement.Controllers
         // randevu guncelle
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, Appointment appointment)
         {
             if (id != appointment.Id)
@@ -130,7 +162,8 @@ namespace FitnessCenterManagement.Controllers
             return View(appointment);
         }
 
-        // silme onay
+        // silme onay - Giris yapmis herkes silebilir
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -154,6 +187,7 @@ namespace FitnessCenterManagement.Controllers
         // randevu silme islem
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var appointment = await _context.Appointments.FindAsync(id);
@@ -170,6 +204,32 @@ namespace FitnessCenterManagement.Controllers
         private bool AppointmentExists(int id)
         {
             return _context.Appointments.Any(e => e.Id == id);
+        }
+
+        // Admin - Randevu Onayla
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Approve(int id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+            if (appointment != null)
+            {
+                appointment.Status = "Onaylandı";
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Admin - Randevu Reddet
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Reject(int id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+            if (appointment != null)
+            {
+                appointment.Status = "Reddedildi";
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

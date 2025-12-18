@@ -12,13 +12,6 @@
     <div class="col-md-6">
         <form asp-action="Create" method="post">
             <div class="mb-3">
-                <label asp-for="UserId" class="form-label">Kullanıcı ID</label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-                <small class="form-text text-muted">Geçici olarak manuel ID girin (örn: user123)</small>
-            </div>
-
-            <div class="mb-3">
                 <label asp-for="TrainerId" class="form-label">Antrenör</label>
                 <select asp-for="TrainerId" class="form-control">
                     <option value="">-- Antrenör Seçin --</option>

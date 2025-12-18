@@ -9,10 +9,13 @@
     <h2>Spor Salonları Listesi</h2>
     <!-- bootstrap ile tasarim bicimlendirme -->
 
-    <!-- Yeni salon ekle butonu -->
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Yeni Salon Ekle</a>
-    </p>
+    <!-- Yeni salon ekle butonu - Sadece Admin -->
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Yeni Salon Ekle</a>
+        </p>
+    }
 
     <!-- Salonları listeleyen tablo -->
     <table class="table table-striped table-hover">
@@ -38,9 +41,12 @@
                     <td>@item.ClosingTime</td>
                     <td>
                         <!-- İşlem butonları -->
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detay</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        }
                     </td>
                 </tr>
             }

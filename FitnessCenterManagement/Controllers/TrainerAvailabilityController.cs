@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using FitnessCenterManagement.Data;
 using FitnessCenterManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FitnessCenterManagement.Controllers
 {
@@ -16,6 +17,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // musaitlik listele
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var availabilities = await _context.TrainerAvailabilities
@@ -25,6 +27,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // musaitlik detay
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +48,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // yeni musaitlik ekle
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             // Dropdown için antrenörler listesi
@@ -55,6 +59,7 @@ namespace FitnessCenterManagement.Controllers
         // yeni musaitlik kaydet
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(TrainerAvailability availability)
         {
             if (ModelState.IsValid)
@@ -69,6 +74,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // musaitlik duzenle
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,6 +95,7 @@ namespace FitnessCenterManagement.Controllers
         // musaitlik guncelle
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, TrainerAvailability availability)
         {
             if (id != availability.Id)
@@ -122,6 +129,7 @@ namespace FitnessCenterManagement.Controllers
         }
 
         // silme onay sayfasi
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,6 +152,7 @@ namespace FitnessCenterManagement.Controllers
         // musaitlik silme
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var availability = await _context.TrainerAvailabilities.FindAsync(id);

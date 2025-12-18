@@ -13,8 +13,7 @@ namespace FitnessCenterManagement.Models
 
         public int Id { get; set; }
 
-        
-        [Required]
+        // UserId otomatik ataniyor, Required degil
         public string UserId { get; set; }
 
         

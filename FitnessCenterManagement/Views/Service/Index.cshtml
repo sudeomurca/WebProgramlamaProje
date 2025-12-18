@@ -6,9 +6,12 @@
 
 <h1>Hizmetler</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Yeni Hizmet Ekle</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Yeni Hizmet Ekle</a>
+    </p>
+}
 
 <table class="table table-striped">
     <thead>
@@ -31,9 +34,12 @@
                 <td>@service.Price.ToString("C2")</td>
                 <td>@service.FitnessCenter!.Name</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@service.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@service.Id" class="btn btn-sm btn-danger">Delete</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@service.Id" class="btn btn-sm btn-danger">Delete</a>
+                    }
                 </td>
             </tr>
         }
