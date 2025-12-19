@@ -1,0 +1,145 @@
+@{
+    ViewData["Title"] = "REST API Test";
+}
+
+<h1>REST API Test Sayfası</h1>
+<p class="text-muted">Aşağıdaki butonlara tıklayarak API'leri test edebilirsiniz.</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5>Antrenör API'leri</h5>
+            </div>
+            <div class="card-body">
+                <h6>1. Pazartesi Çalışan Antrenörler</h6>
+                <p class="text-muted">GET /api/trainers/monday</p>
+                <button class="btn btn-success mb-3" onclick="getMondayTrainers()">Test Et</button>
+
+                <h6>2. Tüm Antrenörler (Bonus)</h6>
+                <p class="text-muted">GET /api/trainers</p>
+                <button class="btn btn-info mb-3" onclick="getAllTrainers()">Test Et</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5>Spor Salonu API'leri</h5>
+            </div>
+            <div class="card-body">
+                <h6>1. 23:00'da Açık Salonlar</h6>
+                <p class="text-muted">GET /api/fitnesscenters/open-at-23</p>
+                <button class="btn btn-success mb-3" onclick="getOpenAt23()">Test Et</button>
+
+                <h6>2. Belirli Saatte Açık Salonlar</h6>
+                <p class="text-muted">GET /api/fitnesscenters/open-at/{hour}</p>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" id="hourInput" placeholder="Saat (0-23)" min="0" max="23" value="20">
+                    <button class="btn btn-info" onclick="getOpenAtHour()">Test Et</button>
+                </div>
+
+                <h6>3. Tüm Salonlar (Bonus)</h6>
+                <p class="text-muted">GET /api/fitnesscenters</p>
+                <button class="btn btn-primary mb-3" onclick="getAllCenters()">Test Et</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h5>API Yanıtı</h5>
+    </div>
+    <div class="card-body">
+        <div id="loading" class="text-center" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Yükleniyor...</span>
+            </div>
+            <p>Yükleniyor...</p>
+        </div>
+        <pre id="result" class="bg-light p-3" style="max-height: 500px; overflow-y: auto;">
+API yanıtı burada görünecek...
+        </pre>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').textContent = '';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function displayResult(data) {
+            hideLoading();
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        }
+
+        function displayError(error) {
+            hideLoading();
+            document.getElementById('result').textContent = 'HATA: ' + error;
+        }
+
+        async function getMondayTrainers() {
+            showLoading();
+            try {
+                const response = await fetch('/api/trainers/monday');
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        async function getAllTrainers() {
+            showLoading();
+            try {
+                const response = await fetch('/api/trainers');
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        async function getOpenAt23() {
+            showLoading();
+            try {
+                const response = await fetch('/api/fitnesscenters/open-at-23');
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        async function getOpenAtHour() {
+            showLoading();
+            const hour = document.getElementById('hourInput').value;
+            try {
+                const response = await fetch(`/api/fitnesscenters/open-at/${hour}`);
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        async function getAllCenters() {
+            showLoading();
+            try {
+                const response = await fetch('/api/fitnesscenters');
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+    </script>
+}
