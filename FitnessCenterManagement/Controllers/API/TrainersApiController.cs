@@ -16,7 +16,7 @@ namespace FitnessCenterManagement.Controllers.API
             _context = context;
         }
 
-        // GET: api/trainers/monday
+        
         // Pazartesi gunu calisan antrenorleri listele
         [HttpGet("monday")]
         public async Task<ActionResult<IEnumerable<object>>> GetMondayTrainers()
@@ -51,8 +51,8 @@ namespace FitnessCenterManagement.Controllers.API
             });
         }
 
-        // GET: api/trainers
-        // Tum antrenorleri listele (bonus)
+       
+        // Tum antrenorleri listele
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetAllTrainers()
         {

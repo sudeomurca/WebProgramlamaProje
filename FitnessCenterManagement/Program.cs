@@ -23,7 +23,7 @@ namespace FitnessCenterManagement
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
-            // gemini ai servisi - interface ile kaydediyoruz
+            // AI baglantisi
             builder.Services.AddHttpClient<IAIService, CohereAIService>();
 
             var app = builder.Build();

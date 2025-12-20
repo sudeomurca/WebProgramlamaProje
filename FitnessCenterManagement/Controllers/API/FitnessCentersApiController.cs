@@ -16,7 +16,7 @@ namespace FitnessCenterManagement.Controllers.API
             _context = context;
         }
 
-        // GET: api/fitnesscenters/open-at-23
+        
         // Saat 23:00'da hala acik olan spor salonlarini listele
         [HttpGet("open-at-23")]
         public async Task<ActionResult<IEnumerable<object>>> GetOpenAt23()
@@ -57,8 +57,8 @@ namespace FitnessCenterManagement.Controllers.API
             });
         }
 
-        // GET: api/fitnesscenters/open-at/{hour}
-        // Belirli bir saatte acik olan spor salonlarini listele (bonus - dinamik)
+       
+        // Belirli bir saatte acik olan spor salonlarini listele 
         [HttpGet("open-at/{hour}")]
         public async Task<ActionResult<IEnumerable<object>>> GetOpenAtHour(int hour)
         {
@@ -100,9 +100,7 @@ namespace FitnessCenterManagement.Controllers.API
                 data = openCenters
             });
         }
-
-        // GET: api/fitnesscenters
-        // Tum spor salonlarini listele (bonus)
+        // Tum spor salonlarini listele 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetAllFitnessCenters()
         {
