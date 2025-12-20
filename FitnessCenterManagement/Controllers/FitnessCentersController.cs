@@ -1,4 +1,4 @@
-﻿using FitnessCenterManagement.Data;
+using FitnessCenterManagement.Data;
 using FitnessCenterManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,7 +58,7 @@ namespace FitnessCenterManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken] //guvenlik
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(FitnessCenter fitnessCenter)
+        public async Task<IActionResult> Create(Models.FitnessCenter fitnessCenter)
         {
             //validation kontrol
             if (ModelState.IsValid)
@@ -94,7 +94,7 @@ namespace FitnessCenterManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, FitnessCenter fitnessCenter)
+        public async Task<IActionResult> Edit(int id, Models.FitnessCenter fitnessCenter)
         {
             if (id != fitnessCenter.Id)
             {

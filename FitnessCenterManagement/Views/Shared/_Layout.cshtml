@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-primary shadow-sm">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary shadow-sm" style="background-color: #006666 !important;">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
                     Fitness Center
@@ -28,31 +28,7 @@
                                 <i class="bi bi-house-door"></i> Ana Sayfa
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="FitnessCenters" asp-action="Index">
-                                <i class="bi bi-building"></i> Salonlar
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Trainer" asp-action="Index">
-                                <i class="bi bi-person-badge"></i> Antrenörler
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index">
-                                <i class="bi bi-list-check"></i> Hizmetler
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="TrainerAvailability" asp-action="Index">
-                                <i class="bi bi-calendar2-week"></i> Müsaitlikler
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">
-                                <i class="bi bi-calendar-check"></i> Randevular
-                            </a>
-                        </li>
+                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -67,7 +43,7 @@
 
     <footer class="border-top footer text-muted mt-5 py-2 bg-light">
         <div class="container text-center">
-            <p class="mb-0 small">&copy; 2025 - Fitness Center Management</p>
+            <p class="mb-0 small">&copy; 2025 - Fitness Center Management Projesi</p>
         </div>
     </footer>
     
@@ -75,5 +51,15 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <style>
+        
+        .btn-primary, .nav-pills .nav-link.active {
+            background-color: #006666 !important;
+            border-color: #006666 !important;
+        }
+        .navbar-nav .nav-link, .navbar-brand {
+            color: white !important;
+        }
+    </style>
 </body>
 </html>

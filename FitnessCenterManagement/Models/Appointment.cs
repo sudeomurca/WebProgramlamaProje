@@ -13,7 +13,6 @@ namespace FitnessCenterManagement.Models
 
         public int Id { get; set; }
 
-        // UserId otomatik ataniyor, Required degil
         public string UserId { get; set; }
 
         
@@ -30,7 +29,7 @@ namespace FitnessCenterManagement.Models
         [Required(ErrorMessage = "Randevu tarihi zorunludur")]
         public DateTime AppointmentDate { get; set; }
 
-        // Bekliyor, onaylandı, reddedildi, tamamlandı gibi
+        
         public string Status { get; set; } 
 
         

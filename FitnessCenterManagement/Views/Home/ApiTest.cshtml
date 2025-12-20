@@ -2,143 +2,144 @@
     ViewData["Title"] = "REST API Test";
 }
 
-<h1>REST API Test Sayfası</h1>
-<p class="text-muted">Aşağıdaki butonlara tıklayarak API'leri test edebilirsiniz.</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold mb-0" style="color: #675889;">REST API Test Sayfası</h1>
+    <a asp-controller="Home" asp-action="Index" class="btn text-white shadow-sm" style="background-color: #006666; border-radius: 10px;">
+        <i class="bi bi-house-door"></i> Ana Sayfaya Dön
+    </a>
+</div>
 
 <div class="row">
     <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <h5>Antrenör API'leri</h5>
+        <div class="card mb-4 border-0 shadow-sm" style="border-radius: 20px;">
+            <div class="card-header text-white border-0" style="background-color: #675889; border-radius: 20px 20px 0 0;">
+                <h5 class="mb-0 p-1"><i class="bi bi-person-badge-fill me-2"></i>Antrenör API'leri</h5>
             </div>
-            <div class="card-body">
-                <h6>1. Pazartesi Çalışan Antrenörler</h6>
-                <p class="text-muted">GET /api/trainers/monday</p>
-                <button class="btn btn-success mb-3" onclick="getMondayTrainers()">Test Et</button>
+            <div class="card-body p-4">
+                <h6 class="text-muted small text-uppercase fw-bold">1. Pazartesi Çalışan Antrenörler</h6>
+                <button class="btn w-100 mb-3 api-btn" onclick="apiTest('/api/trainers/monday')"
+                        style="border: 2px solid #675889; color: #675889;">
+                    Test Et →
+                </button>
 
-                <h6>2. Tüm Antrenörler (Bonus)</h6>
-                <p class="text-muted">GET /api/trainers</p>
-                <button class="btn btn-info mb-3" onclick="getAllTrainers()">Test Et</button>
+                <h6 class="text-muted small text-uppercase fw-bold">2. Tüm Antrenörler</h6>
+                <button class="btn w-100 mb-3 api-btn" onclick="apiTest('/api/trainers')"
+                        style="border: 2px solid #a29bfe; color: #a29bfe;">
+                    Verileri Getir
+                </button>
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header bg-success text-white">
-                <h5>Spor Salonu API'leri</h5>
+        <div class="card mb-4 border-0 shadow-sm" style="border-radius: 20px;">
+            <div class="card-header text-white border-0" style="background-color: #006666; border-radius: 20px 20px 0 0;">
+                <h5 class="mb-0 p-1"><i class="bi bi-building-fill me-2"></i>Spor Salonu API'leri</h5>
             </div>
-            <div class="card-body">
-                <h6>1. 23:00'da Açık Salonlar</h6>
-                <p class="text-muted">GET /api/fitnesscenters/open-at-23</p>
-                <button class="btn btn-success mb-3" onclick="getOpenAt23()">Test Et</button>
+            <div class="card-body p-4">
+                <h6 class="text-muted small text-uppercase fw-bold">1. 23:00'da Açık Salonlar</h6>
+                <button class="btn w-100 mb-3 api-btn" onclick="apiTest('/api/fitnesscenters/open-at-23')"
+                        style="border: 2px solid #006666; color: #006666;">
+                    Test Et →
+                </button>
 
-                <h6>2. Belirli Saatte Açık Salonlar</h6>
-                <p class="text-muted">GET /api/fitnesscenters/open-at/{hour}</p>
+                <h6 class="text-muted small text-uppercase fw-bold">2. Belirli Saatte Açık Salonlar</h6>
                 <div class="input-group mb-3">
-                    <input type="number" class="form-control" id="hourInput" placeholder="Saat (0-23)" min="0" max="23" value="20">
-                    <button class="btn btn-info" onclick="getOpenAtHour()">Test Et</button>
+                    <input type="number" class="form-control border-end-0" id="hourInput" placeholder="Saat" min="0" max="23" value="20"
+                           style="border-radius: 10px 0 0 10px; border-color: #00a3a3;">
+                    <button class="btn btn-dark" onclick="apiTest('', true)"
+                            style="background-color: #00a3a3; border-color: #00a3a3; border-radius: 0 10px 10px 0;">
+                        Sorgula
+                    </button>
                 </div>
 
-                <h6>3. Tüm Salonlar (Bonus)</h6>
-                <p class="text-muted">GET /api/fitnesscenters</p>
-                <button class="btn btn-primary mb-3" onclick="getAllCenters()">Test Et</button>
+                <h6 class="text-muted small text-uppercase fw-bold">3. Tüm Salonlar</h6>
+                <button class="btn w-100 mb-3 api-btn" onclick="apiTest('/api/fitnesscenters')"
+                        style="border: 2px solid #48c9b0; color: #48c9b0;">
+                    Listeyi Çek
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header bg-dark text-white">
-        <h5>API Yanıtı</h5>
+<div class="card border-0 shadow-lg" style="border-radius: 25px;">
+    <div class="card-header bg-dark text-white border-0 p-3" style="border-radius: 25px 25px 0 0;">
+        <h5 class="mb-0 d-inline-block me-2"><i class="bi bi-terminal me-2"></i>API Yanıtı</h5>
     </div>
-    <div class="card-body">
-        <div id="loading" class="text-center" style="display: none;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Yükleniyor...</span>
-            </div>
-            <p>Yükleniyor...</p>
+    <div class="card-body p-0">
+        <div id="loading" class="text-center py-5" style="display: none;">
+            <div class="spinner-border" style="color: #675889;" role="status"></div>
+            <p class="mt-2 fw-bold text-muted">Veri sunucudan çekiliyor...</p>
         </div>
-        <pre id="result" class="bg-light p-3" style="max-height: 500px; overflow-y: auto;">
-API yanıtı burada görünecek...
+        <pre id="result" class="m-0 p-4" style="background-color: #f8f9fa; max-height: 400px; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 0.9rem; color: #2d3436; border-radius: 0 0 25px 25px;">
+ Test butonuna basıldığında sonuçlar burada listelenecek.
         </pre>
     </div>
 </div>
 
+@section Styles {
+    <style>
+        .api-btn {
+            background-color: transparent;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+            .api-btn:hover {
+                transform: translateX(5px);
+                background-color: #f1f2f6;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            }
+
+            .api-btn[onclick*="trainers/monday"]:hover {
+                background-color: #675889;
+                color: white !important;
+            }
+
+            .api-btn[onclick*="api/trainers')"]:hover {
+                background-color: #a29bfe;
+                color: white !important;
+            }
+
+            .api-btn[onclick*="open-at-23"]:hover {
+                background-color: #006666;
+                color: white !important;
+            }
+
+            .api-btn[onclick*="fitnesscenters')"]:hover {
+                background-color: #48c9b0;
+                color: white !important;
+            }
+
+        input:focus {
+            box-shadow: none !important;
+            border-color: #00a3a3 !important;
+        }
+    </style>
+}
+
 @section Scripts {
     <script>
-        function showLoading() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('result').textContent = '';
-        }
+        async function apiTest(url, isHourInput = false) {
+            const resultArea = document.getElementById('result');
+            const loading = document.getElementById('loading');
+            let finalUrl = isHourInput ? `/api/fitnesscenters/open-at/${document.getElementById('hourInput').value}` : url;
 
-        function hideLoading() {
-            document.getElementById('loading').style.display = 'none';
-        }
+            loading.style.display = 'block';
+            resultArea.textContent = '';
 
-        function displayResult(data) {
-            hideLoading();
-            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
-        }
-
-        function displayError(error) {
-            hideLoading();
-            document.getElementById('result').textContent = 'HATA: ' + error;
-        }
-
-        async function getMondayTrainers() {
-            showLoading();
             try {
-                const response = await fetch('/api/trainers/monday');
+                const response = await fetch(finalUrl);
                 const data = await response.json();
-                displayResult(data);
+                resultArea.textContent = JSON.stringify(data, null, 2);
             } catch (error) {
-                displayError(error.message);
-            }
-        }
-
-        async function getAllTrainers() {
-            showLoading();
-            try {
-                const response = await fetch('/api/trainers');
-                const data = await response.json();
-                displayResult(data);
-            } catch (error) {
-                displayError(error.message);
-            }
-        }
-
-        async function getOpenAt23() {
-            showLoading();
-            try {
-                const response = await fetch('/api/fitnesscenters/open-at-23');
-                const data = await response.json();
-                displayResult(data);
-            } catch (error) {
-                displayError(error.message);
-            }
-        }
-
-        async function getOpenAtHour() {
-            showLoading();
-            const hour = document.getElementById('hourInput').value;
-            try {
-                const response = await fetch(`/api/fitnesscenters/open-at/${hour}`);
-                const data = await response.json();
-                displayResult(data);
-            } catch (error) {
-                displayError(error.message);
-            }
-        }
-
-        async function getAllCenters() {
-            showLoading();
-            try {
-                const response = await fetch('/api/fitnesscenters');
-                const data = await response.json();
-                displayResult(data);
-            } catch (error) {
-                displayError(error.message);
+                resultArea.textContent = 'HATA: ' + error.message;
+            } finally {
+                loading.style.display = 'none';
             }
         }
     </script>

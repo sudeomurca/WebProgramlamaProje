@@ -1,0 +1,107 @@
+@model FitnessCenterManagement.Models.AIRecommendation
+
+@{
+    ViewData["Title"] = "AI Egzersiz Önerisi Al";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0" style="border-radius: 25px; overflow: hidden;">
+                <div class="card-header text-white border-0 py-3" style="background-color: #C57287;">
+                    <h4 class="mb-0">
+                        <i class="bi bi-robot"></i> Kişiselleştirilmiş AI Egzersiz Önerisi
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted mb-4">
+                        Bilgilerinizi girerek yapay zeka destekli kişiselleştirilmiş egzersiz ve beslenme önerileri alabilirsiniz.
+                    </p>
+
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="border-radius: 12px;"></div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Age" class="form-label fw-bold"></label>
+                                <input asp-for="Age" class="form-control" style="border-radius: 10px; border: 1px solid #ddd;" />
+                                <span asp-validation-for="Age" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Height" class="form-label fw-bold"></label>
+                                <input asp-for="Height" class="form-control" style="border-radius: 10px; border: 1px solid #ddd;" />
+                                <span asp-validation-for="Height" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Weight" class="form-label fw-bold"></label>
+                                <input asp-for="Weight" class="form-control" style="border-radius: 10px; border: 1px solid #ddd;" />
+                                <span asp-validation-for="Weight" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Gender" class="form-label fw-bold"></label>
+                            <select asp-for="Gender" class="form-select" style="border-radius: 10px; border: 1px solid #ddd;">
+                                <option value="">Seçiniz...</option>
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadın">Kadın</option>
+                                <option value="Diğer">Diğer</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Goal" class="form-label fw-bold"></label>
+                            <select asp-for="Goal" class="form-select" style="border-radius: 10px; border: 1px solid #ddd;">
+                                <option value="">Seçiniz...</option>
+                                <option value="Kilo Verme">Kilo Verme</option>
+                                <option value="Kas Yapma">Kas Yapma</option>
+                                <option value="Kondisyon Artırma">Kondisyon Artırma</option>
+                                <option value="Genel Sağlık">Genel Sağlık</option>
+                                <option value="Esneklik">Esneklik ve Mobilite</option>
+                            </select>
+                            <span asp-validation-for="Goal" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ExperienceLevel" class="form-label fw-bold"></label>
+                            <select asp-for="ExperienceLevel" class="form-select" style="border-radius: 10px; border: 1px solid #ddd;">
+                                <option value="">Seçiniz...</option>
+                                <option value="Başlangıç">Başlangıç (0-6 ay)</option>
+                                <option value="Orta">Orta (6 ay - 2 yıl)</option>
+                                <option value="İleri">İleri (2+ yıl)</option>
+                            </select>
+                            <span asp-validation-for="ExperienceLevel" class="text-danger"></span>
+                        </div>
+
+                        <div class="alert border-0 shadow-sm mb-4" style="background-color: #f0f7f7; border-left: 5px solid #006666; border-radius: 12px;">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-info-circle-fill fs-4 me-3" style="color: #006666;"></i>
+                                <small class="text-muted">
+                                    Bu bilgiler yapay zeka tarafından analiz edilerek size özel egzersiz ve beslenme planı oluşturulacaktır. İşlem birkaç saniye sürebilir.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="MyRecommendations" class="btn btn-light px-4 py-2" style="border-radius: 12px; border: 1px solid #ddd;">
+                                <i class="bi bi-arrow-left"></i> Geri
+                            </a>
+                            <button type="submit" class="btn text-white px-4 py-2 shadow-sm" style="background-color: #C57287; border-radius: 12px; font-weight: 600;">
+                                <i class="bi bi-stars"></i> AI Önerisi Al
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

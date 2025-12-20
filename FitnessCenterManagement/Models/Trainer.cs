@@ -4,16 +4,23 @@ namespace FitnessCenterManagement.Models
 {
     public class Trainer
     {
+        public Trainer()
+        {
+            FirstName = "";
+            LastName = "";
+            Email = "";
+            Phone = "";
+        }
         [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Ad gereklidir")]
         [StringLength(50)]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } 
 
         [Required(ErrorMessage = "Soyad gereklidir")]
         [StringLength(50)]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; } 
 
         [Required(ErrorMessage = "Uzmanlık alanı gereklidir")]
         public SpecializationType Specialization { get; set; }
@@ -21,12 +28,12 @@ namespace FitnessCenterManagement.Models
         [Required(ErrorMessage = "E-posta gereklidir")]
         [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz")]
         [StringLength(100)]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; } 
 
         [Required(ErrorMessage = "Telefon numarası gereklidir")]
         [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz")]
         [StringLength(20)]
-        public string Phone { get; set; } = string.Empty;
+        public string Phone { get; set; } 
 
         
         [Required(ErrorMessage = "Spor salonu seçilmelidir")]

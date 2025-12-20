@@ -1,0 +1,111 @@
+@model FitnessCenterManagement.Models.AIRecommendation
+
+@{
+    ViewData["Title"] = "AI Önerisi Detay";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0" style="border-radius: 25px; overflow: hidden;">
+                
+                <div class="card-header text-white border-0 py-3" style="background-color: #C57287;">
+                    <h4 class="mb-0">
+                        <i class="bi bi-stars"></i> AI Egzersiz ve Beslenme Öneriniz Hazır!
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    @* Bilgi Kartları Bölümü *@
+                    <div class="row mb-4 g-3">
+                        <div class="col-md-3">
+                            <div class="card border-0" style="background-color: #fcf8f9; border-radius: 15px;">
+                                <div class="card-body text-center">
+                                    <h6 class="text-muted mb-1 small text-uppercase fw-bold">Yaş</h6>
+                                    <h4 class="mb-0" style="color: #C57287;">@Model.Age</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-0" style="background-color: #fcf8f9; border-radius: 15px;">
+                                <div class="card-body text-center">
+                                    <h6 class="text-muted mb-1 small text-uppercase fw-bold">Boy</h6>
+                                    <h4 class="mb-0" style="color: #C57287;">@Model.Height cm</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-0" style="background-color: #fcf8f9; border-radius: 15px;">
+                                <div class="card-body text-center">
+                                    <h6 class="text-muted mb-1 small text-uppercase fw-bold">Kilo</h6>
+                                    <h4 class="mb-0" style="color: #C57287;">@Model.Weight kg</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-0" style="background-color: #fcf8f9; border-radius: 15px;">
+                                <div class="card-body text-center">
+                                    <h6 class="text-muted mb-1 small text-uppercase fw-bold">Cinsiyet</h6>
+                                    <h4 class="mb-0" style="color: #C57287;">@Model.Gender</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4 px-2">
+                        <div class="col-md-6">
+                            <p class="mb-1"><span class="badge" style="background-color: #C57287;">Hedef</span></p>
+                            <h5 class="fw-bold">@Model.Goal</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1"><span class="badge bg-secondary">Seviye</span></p>
+                            <h5 class="fw-bold">@Model.ExperienceLevel</h5>
+                        </div>
+                    </div>
+
+                    @* Öneri İçerik Kartı *@
+                    <div class="card border-0 shadow-sm" style="border-radius: 20px; background-color: #fff;">
+                        <div class="card-header text-white border-0" style="background-color: #675889; border-radius: 20px 20px 0 0;">
+                            <h5 class="mb-0 p-1">
+                                <i class="bi bi-robot me-2"></i> AI Özel Programı
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div style="white-space: pre-line; line-height: 1.8; color: #444; font-size: 1.05rem;">
+                                @Model.Recommendation
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light border-0 text-muted">
+                            <small>
+                                <i class="bi bi-calendar-event me-1"></i> Oluşturulma Tarihi: @Model.RequestDate.ToString("dd MMMM yyyy HH:mm")
+                            </small>
+                        </div>
+                    </div>
+
+                    @* Uyarı Bölümü *@
+                    <div class="alert mt-4 border-0 shadow-sm" style="background-color: #fff3cd; border-left: 5px solid #ffc107; border-radius: 10px;">
+                        <div class="d-flex">
+                            <i class="bi bi-exclamation-triangle-fill fs-4 me-3 text-warning"></i>
+                            <div>
+                                <strong>Önemli Hatırlatma:</strong>
+                                <p class="mb-0 small text-muted">
+                                    Bu öneriler yapay zeka tarafından oluşturulmuştur. Sağlık durumunuz hakkında profesyonel tıbbi tavsiye yerine geçmez.
+                                    Herhangi bir programa başlamadan önce doktorunuza danışın.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Aksiyon Butonları *@
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a asp-action="MyRecommendations" class="btn btn-light px-4 py-2 fw-bold" style="border-radius: 12px; border: 1px solid #ddd;">
+                            <i class="bi bi-arrow-left me-2"></i> Listeye Dön
+                        </a>
+                        <a asp-action="Create" class="btn text-white px-4 py-2 fw-bold shadow-sm" style="background-color: #006666; border-radius: 12px;">
+                            <i class="bi bi-plus-circle me-2"></i> Yeni Öneri Al
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

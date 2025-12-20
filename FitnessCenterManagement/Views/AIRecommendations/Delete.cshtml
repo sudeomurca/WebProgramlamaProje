@@ -1,0 +1,55 @@
+@model FitnessCenterManagement.Models.AIRecommendation
+
+@{
+    ViewData["Title"] = "AI Önerisi Sil";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> AI Önerisini Sil
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <strong>Uyarı:</strong> Bu AI önerisini silmek istediğinizden emin misiniz?
+                    </div>
+
+                    <dl class="row">
+                        <dt class="col-sm-4">Oluşturulma Tarihi</dt>
+                        <dd class="col-sm-8">@Model.RequestDate.ToString("dd MMMM yyyy HH:mm")</dd>
+
+                        <dt class="col-sm-4">Kullanıcı ID</dt>
+                        <dd class="col-sm-8">@Model.UserId</dd>
+
+                        <dt class="col-sm-4">Hedef</dt>
+                        <dd class="col-sm-8">@Model.Goal</dd>
+
+                        <dt class="col-sm-4">Egzersiz Seviyesi</dt>
+                        <dd class="col-sm-8">@Model.ExperienceLevel</dd>
+
+                        <dt class="col-sm-4">Bilgiler</dt>
+                        <dd class="col-sm-8">
+                            Yaş: @Model.Age, Boy: @Model.Height cm, Kilo: @Model.Weight kg
+                        </dd>
+                    </dl>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> İptal
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Sil
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

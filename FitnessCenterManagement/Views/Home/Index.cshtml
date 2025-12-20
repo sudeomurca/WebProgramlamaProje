@@ -3,112 +3,118 @@
 }
 
 <!-- Hero Section -->
-<div class="hero-section text-white text-center py-5" style="background-color: #4A90E2; min-height: 400px; display: flex; align-items: center; border-radius: 10px; margin-bottom: 40px;">
-    <div class="container">
-        <h1 class="display-3 fw-bold mb-4">Fitness Center Yönetim Sistemi</h1>
-        <p class="lead mb-4">Spor salonunuzu dijitalleştirin! Antrenör yönetimi, randevu sistemi ve yapay zeka destekli öneriler.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a asp-controller="Appointment" asp-action="Create" class="btn btn-light btn-lg px-5">
-                Randevu Al
-            </a>
-            <a asp-controller="FitnessCenters" asp-action="Index" class="btn btn-outline-light btn-lg px-5">
-                Salonları Gör
-            </a>
-        </div>
-    </div>
+<div class="text-white shadow-lg text-center"
+     style="background: linear-gradient(135deg, #006666 0%, #00a3a3 100%) !important;
+            padding-top: 6rem !important;
+            padding-bottom: 6rem !important;
+            border-radius: 40px !important;
+            margin-bottom: 3rem !important;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,255,255,0.2);">
+
+    <h1 class="display-3 fw-bold" style="text-shadow: 2px 4px 12px rgba(0,0,0,0.15);">
+        Fitness Center Yönetim Sistemi
+    </h1>
 </div>
 
 <!-- Features Section -->
-<div class="container mb-5">
-    <h2 class="text-center mb-5 fw-bold">Özelliklerimiz</h2>
-    
-    <div class="row g-4">
-        <!-- Feature 1 -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="feature-icon bg-primary bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-building fs-1"></i>
-                    </div>
-                    <h4 class="card-title mb-3">Spor Salonu Yönetimi</h4>
-                    <p class="card-text text-muted">Çoklu spor salonu desteği, çalışma saatleri ve hizmet yönetimi.</p>
-                    <a asp-controller="FitnessCenters" asp-action="Index" class="btn btn-outline-primary">Salonlar →</a>
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-card">
+            <div class="card-body text-center p-4">
+                <div class="feature-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                     style="width: 80px; height: 80px; background-color: #A7F502; color: white !important;">
+                    <i class="bi bi-building fs-1"></i>
                 </div>
+                <h4 class="card-title mb-3">Spor Salonu Yönetimi</h4>
+                <a asp-controller="FitnessCenters" asp-action="Index" class="btn w-100"
+                   onmouseover="this.style.backgroundColor='#A7F502'; this.style.color='white';"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#A7F502';"
+                   style="border: 1px solid #A7F502; color: #A7F502; transition: 0.3s;">Salonlar →</a>
             </div>
         </div>
+    </div>
 
-        <!-- Feature 2 -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="feature-icon bg-success bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-person-badge fs-1"></i>
-                    </div>
-                    <h4 class="card-title mb-3">Antrenör Takibi</h4>
-                    <p class="card-text text-muted">Antrenör uzmanlık alanları ve müsaitlik saatleri yönetimi.</p>
-                    <a asp-controller="Trainer" asp-action="Index" class="btn btn-outline-success">Antrenörler →</a>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-card">
+            <div class="card-body text-center p-4">
+                <div class="feature-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                     style="width: 80px; height: 80px; background-color: #F49FFA; color: white !important;">
+                    <i class="bi bi-person-badge fs-1"></i>
                 </div>
+                <h4 class="card-title mb-3">Antrenör Takibi</h4>
+                <a asp-controller="Trainer" asp-action="Index" class="btn w-100"
+                   onmouseover="this.style.backgroundColor='#F49FFA'; this.style.color='white';"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#F49FFA';"
+                   style="border: 1px solid #F49FFA; color: #F49FFA; transition: 0.3s;">Antrenörler →</a>
             </div>
         </div>
+    </div>
 
-        <!-- Feature 3 -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="feature-icon bg-warning bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-calendar-check fs-1"></i>
-                    </div>
-                    <h4 class="card-title mb-3">Akıllı Randevu</h4>
-                    <p class="card-text text-muted">Çakışma kontrolü, otomatik müsaitlik tespiti ve onay sistemi.</p>
-                    <a asp-controller="Appointment" asp-action="Index" class="btn btn-outline-warning">Randevular →</a>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-card">
+            <div class="card-body text-center p-4">
+                <div class="feature-icon bg-warning bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-calendar-check fs-1"></i>
                 </div>
+                <h4 class="card-title mb-3">Akıllı Randevu</h4>
+                <a asp-controller="Appointment" asp-action="Index" class="btn w-100"
+                   onmouseover="this.style.backgroundColor='#ffc107'; this.style.color='white';"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ffc107';"
+                   style="border: 1px solid #ffc107; color: #ffc107; transition: 0.3s;">Randevular →</a>
             </div>
         </div>
+    </div>
 
-        <!-- Feature 4 -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="feature-icon bg-info bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-list-check fs-1"></i>
-                    </div>
-                    <h4 class="card-title mb-3">Hizmetler</h4>
-                    <p class="card-text text-muted">Farklı hizmet türleri, ücretler ve süre tanımlaması.</p>
-                    <a asp-controller="Service" asp-action="Index" class="btn btn-outline-info">Hizmetler →</a>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-card">
+            <div class="card-body text-center p-4">
+                <div class="feature-icon bg-info bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="bi bi-list-check fs-1"></i>
                 </div>
+                <h4 class="card-title mb-3">Hizmetler</h4>
+                <a asp-controller="Service" asp-action="Index" class="btn w-100"
+                   onmouseover="this.style.backgroundColor='#0dcaf0'; this.style.color='white';"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#0dcaf0';"
+                   style="border: 1px solid #0dcaf0; color: #0dcaf0; transition: 0.3s;">Hizmetler →</a>
             </div>
         </div>
+    </div>
 
-        <!-- Feature 5 -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="feature-icon bg-danger bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-robot fs-1"></i>
-                    </div>
-                    <h4 class="card-title mb-3">AI Önerileri</h4>
-                    <p class="card-text text-muted">Yapay zeka destekli kişiselleştirilmiş egzersiz önerileri.</p>
-                    <a href="#" class="btn btn-outline-danger">Yakında →</a>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-card">
+            <div class="card-body text-center p-4">
+                <div class="feature-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                     style="width: 80px; height: 80px; background-color: #C57287; color: white !important;">
+                    <i class="bi bi-robot fs-1"></i>
                 </div>
+                <h4 class="card-title mb-3">AI Önerileri</h4>
+                <a asp-controller="AIRecommendations" asp-action="MyRecommendations" class="btn w-100"
+                   onmouseover="this.style.backgroundColor='#C57287'; this.style.color='white';"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#C57287';"
+                   style="border: 1px solid #C57287; color: #C57287; transition: 0.3s;">AI Önerileri →</a>
             </div>
         </div>
+    </div>
 
-        <!-- Feature 6 - REST API -->
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0 hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="feature-icon bg-dark bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-code-square fs-1"></i>
-                    </div>
-                    <h4 class="card-title mb-3">REST API</h4>
-                    <p class="card-text text-muted">LINQ sorguları ile güçlü API endpoint'leri - test edin!</p>
-                    <a asp-controller="Home" asp-action="ApiTest" class="btn btn-outline-dark">API Test →</a>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-card">
+            <div class="card-body text-center p-4">
+                <div class="feature-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                     style="width: 80px; height: 80px; background-color: #675889; color: white !important;">
+                    <i class="bi bi-code-square fs-1"></i>
                 </div>
+                <h4 class="card-title mb-3">REST API</h4>
+                <a asp-controller="Home" asp-action="ApiTest" class="btn w-100"
+                   onmouseover="this.style.backgroundColor='#675889'; this.style.color='white';"
+                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#675889';"
+                   style="border: 1px solid #675889; color: #675889; transition: 0.3s;">API Test →</a>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Stats Section -->
 <div class="bg-light py-5 mb-5 rounded">
     <div class="container">

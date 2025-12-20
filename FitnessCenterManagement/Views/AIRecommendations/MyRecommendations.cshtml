@@ -1,0 +1,127 @@
+@model IEnumerable<FitnessCenterManagement.Models.AIRecommendation>
+
+@{
+    ViewData["Title"] = "AI Önerilerim";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+       
+        <h2 style="color: #C57287;"><i class="bi bi-robot"></i> AI Egzersiz Önerilerim</h2>
+
+        <div class="d-flex gap-2">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-light shadow-sm" style="border-radius: 10px; border: 1px solid #ddd;">
+                <i class="bi bi-house-door"></i> Ana Sayfaya Dön
+            </a>
+
+            <a asp-action="Create" class="btn text-white shadow-sm" style="background-color: #006666; border-radius: 10px;">
+                <i class="bi bi-plus-circle"></i> Yeni Öneri Al
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100 border-0" style="border-radius: 20px; overflow: hidden;">
+                        
+                        <div class="card-header text-white d-flex justify-content-between align-items-center border-0" style="background-color: #C57287;">
+                            <h5 class="mb-0">
+                                <i class="bi bi-calendar"></i> @item.RequestDate.ToString("dd MMMM yyyy")
+                            </h5>
+                            <button type="button" class="btn btn-sm btn-light opacity-75" style="border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#deleteModal@(item.Id)">
+                                <i class="bi bi-trash text-danger"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <small class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Hedef</small>
+                                    <p class="mb-0"><strong style="color: #C57287;">@item.Goal</strong></p>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Seviye</small>
+                                    <p class="mb-0"><strong>@item.ExperienceLevel</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-4 text-center border-end">
+                                    <small class="text-muted">Yaş</small>
+                                    <p class="mb-0 fw-bold">@item.Age</p>
+                                </div>
+                                <div class="col-4 text-center border-end">
+                                    <small class="text-muted">Boy</small>
+                                    <p class="mb-0 fw-bold">@item.Height cm</p>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <small class="text-muted">Kilo</small>
+                                    <p class="mb-0 fw-bold">@item.Weight kg</p>
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(item.Recommendation))
+                            {
+                                <div class="card border-0" style="background-color: #fcf8f9;">
+                                    <div class="card-body p-3">
+                                        <p class="card-text small text-muted italic" style="max-height: 80px; overflow: hidden; font-style: italic;">
+                                            <i class="bi bi-quote"></i> @(item.Recommendation.Length > 200 ? item.Recommendation.Substring(0, 200) + "..." : item.Recommendation)
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="card-footer bg-transparent border-0 p-3">
+                            
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm w-100 py-2"
+                               style="border: 2px solid #C57287; color: #C57287; border-radius: 12px; font-weight: 600;">
+                                <i class="bi bi-eye"></i> Detayları Gör
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="deleteModal@(item.Id)" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0" style="border-radius: 20px;">
+                            <div class="modal-header bg-danger text-white border-0" style="border-radius: 20px 20px 0 0;">
+                                <h5 class="modal-title">
+                                    <i class="bi bi-exclamation-triangle"></i> Öneriyi Sil
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center p-4">
+                                <p class="fs-5">Bu AI önerisini silmek istediğinizden emin misiniz?</p>
+                                <p class="text-muted small">Bu işlem geri alınamaz.</p>
+                            </div>
+                            <div class="modal-footer border-0 justify-content-center pb-4">
+                                <button type="button" class="btn btn-light px-4" style="border-radius: 10px;" data-bs-dismiss="modal">İptal</button>
+                                <form asp-action="DeleteConfirmed" asp-route-id="@item.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger px-4" style="border-radius: 10px;">
+                                        <i class="bi bi-trash"></i> Kalıcı Olarak Sil
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        
+        <div class="alert shadow-sm text-center p-5" style="background-color: #fff; border-radius: 30px; border: 2px dashed #C57287;">
+            <i class="bi bi-robot" style="font-size: 4rem; color: #C57287;"></i>
+            <h4 class="mt-3" style="color: #C57287;">Henüz AI öneriniz yok</h4>
+            <p class="text-muted">Kişiselleştirilmiş egzersiz ve beslenme önerisi almak için bilgilerinizi girin.</p>
+            <a asp-action="Create" class="btn btn-lg mt-2 text-white" style="background-color: #C57287; border-radius: 15px;">
+                <i class="bi bi-stars"></i> İlk Önerimi Al
+            </a>
+        </div>
+    }
+</div>

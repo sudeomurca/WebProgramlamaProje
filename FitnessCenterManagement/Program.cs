@@ -1,7 +1,8 @@
-using FitnessCenterManagement.Data;
+using FitnessCenterManagement.Data;//db icin
 using FitnessCenterManagement.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using FitnessCenterManagement.Services;
+using Microsoft.AspNetCore.Identity;//form islemleri icin
+using Microsoft.EntityFrameworkCore;//db iletisimi icin
 
 namespace FitnessCenterManagement
 {
@@ -11,20 +12,23 @@ namespace FitnessCenterManagement
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            
+            var connectionString = builder.Configuration.GetConnectionString("SporSalonuBaglantisi") ??
+                throw new InvalidOperationException("Hata: 'SporSalonuBaglantisi' bulunamadi.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+            //e posta onayıyla ugrasmamak icin false
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+            // gemini ai servisi - interface ile kaydediyoruz
+            builder.Services.AddHttpClient<IAIService, CohereAIService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();

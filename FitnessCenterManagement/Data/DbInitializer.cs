@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;//rol yonetimi
 using FitnessCenterManagement.Models;
 
 namespace FitnessCenterManagement.Data
 {
-    public static class DbInitializer
+    //rolleri ve admin hesabini db e eklemek icin
+    public static class DbInitializer //nesne olusturmadan cagir
     {
         public static async Task Initialize(IServiceProvider serviceProvider)
         {
+            //gerekli servisleri alma
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            
+            //roller
             string[] roleNames = { "Admin", "Uye" };
-
+            //roller db de mevcut mu
             foreach (var roleName in roleNames)
             {
                 var roleExist = await roleManager.RoleExistsAsync(roleName);
@@ -22,7 +24,7 @@ namespace FitnessCenterManagement.Data
                 }
             }
 
-            
+            //admin bilgileri
             var adminEmail = "g231210027@sakarya.edu.tr"; 
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
@@ -38,7 +40,7 @@ namespace FitnessCenterManagement.Data
                 };
 
                 var result = await userManager.CreateAsync(newAdmin, "Sau123!");
-
+                //basarili ise admin yetkisi ver
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(newAdmin, "Admin");

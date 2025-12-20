@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace FitnessCenterManagement.Models
 {
+    //Enum ifadelerin duzgun formda gozukmesi icin
     public static class EnumExtensions
     {
         public static string GetDisplayName(this Enum enumValue)
